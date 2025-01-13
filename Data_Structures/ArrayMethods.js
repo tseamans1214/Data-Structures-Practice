@@ -16,6 +16,7 @@ exports.mergeSort = mergeSort;
 exports.quickSort = quickSort;
 exports.heapSort = heapSort;
 exports.countingSort = countingSort;
+exports.radixSort = radixSort;
 exports.linearSearch = linearSearch;
 exports.binarySearch = binarySearch;
 // Bubble Sort
@@ -242,6 +243,48 @@ function countingSort(array) {
         }
     }
     return sortedArray;
+}
+// Radix Sort
+// Description: Sort elements digit by digit using counting sort as a subroutine.
+// Time Complexity: O(n*k), where k is the number of digits.
+// Space Complexity: O(n+k).
+function radixSort(array) {
+    // Get the maximum number to know the number of digits
+    var max = Math.max.apply(Math, array);
+    // Perform counting sort for every digit (from least significant to most significant)
+    var exp = 1; // exp is the place value (1s, 10s, 100s, ...)
+    while (Math.floor(max / exp) > 0) {
+        countingSortByDigit(array, exp);
+        exp *= 10;
+    }
+    return array;
+}
+function countingSortByDigit(array, exp) {
+    var n = array.length;
+    var output = new Array(n);
+    var count = [];
+    for (var i = 0; i < 10; i++) {
+        count[i] = 0;
+    }
+    // Count occurrences of digits
+    for (var i = 0; i < n; i++) {
+        var digit = Math.floor(array[i] / exp) % 10;
+        count[digit]++;
+    }
+    // Change count[i] so that count[i] now contains actual position of this digit in output[]
+    for (var i = 1; i < 10; i++) {
+        count[i] += count[i - 1];
+    }
+    // Build the output array
+    for (var i = n - 1; i >= 0; i--) {
+        var digit = Math.floor(array[i] / exp) % 10;
+        output[count[digit] - 1] = array[i];
+        count[digit]--;
+    }
+    // Copy the sorted output array to the original array
+    for (var i = 0; i < n; i++) {
+        array[i] = output[i];
+    }
 }
 // Linear Search
 // Description: Search for target by checking elements one by one

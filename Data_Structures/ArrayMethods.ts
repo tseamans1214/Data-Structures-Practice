@@ -248,6 +248,57 @@ export function countingSort(array: number[]): number[] {
     return sortedArray;
 }
 
+// Radix Sort
+// Description: Sort elements digit by digit using counting sort as a subroutine.
+// Time Complexity: O(n*k), where k is the number of digits.
+// Space Complexity: O(n+k).
+export function radixSort(array: number[]): number[] {
+    // Get the maximum number to know the number of digits
+    const max = Math.max(...array);
+    
+    // Perform counting sort for every digit (from least significant to most significant)
+    let exp = 1; // exp is the place value (1s, 10s, 100s, ...)
+    while (Math.floor(max / exp) > 0) {
+        countingSortByDigit(array, exp);
+        exp *= 10;
+    }
+
+    return array;
+}
+
+function countingSortByDigit(array: number[], exp: number): void {
+    const n = array.length;
+    const output: number[] = new Array(n);
+    const count: number[] = [];
+    for (let i = 0; i < 10; i++) {
+        count[i] = 0;
+    }
+
+    // Count occurrences of digits
+    for (let i = 0; i < n; i++) {
+        const digit = Math.floor(array[i] / exp) % 10;
+        count[digit]++;
+    }
+
+    // Change count[i] so that count[i] now contains actual position of this digit in output[]
+    for (let i = 1; i < 10; i++) {
+        count[i] += count[i - 1];
+    }
+
+    // Build the output array
+    for (let i = n - 1; i >= 0; i--) {
+        const digit = Math.floor(array[i] / exp) % 10;
+        output[count[digit] - 1] = array[i];
+        count[digit]--;
+    }
+
+    // Copy the sorted output array to the original array
+    for (let i = 0; i < n; i++) {
+        array[i] = output[i];
+    }
+}
+
+
 // Linear Search
 // Description: Search for target by checking elements one by one
 // Time Complexity: O(n).
