@@ -14,7 +14,7 @@ export class Tree {
     public getRoot() {
         return this.root;
     }
-
+    // Depth-First Searchs: preOrderSearch, postOrderSearch, inOrderSearch
     // Root -> Left Node -> Right Node
     public preOrderSearch() {
         console.log(this.root);
@@ -56,7 +56,7 @@ export class Tree {
         }
       
         console.log(result);
-      }
+    }
 
     public insert(value) {
         if (this.root == null) {

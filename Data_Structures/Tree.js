@@ -53,6 +53,26 @@ var Tree = /** @class */ (function () {
         }
         console.log(result);
     };
+    // Depth-First Search (DFS): Explore as far as possible along each branch before backtracking.
+    // Time Complexity: O(V+E), where V is vertices and E is edges.
+    // Space Complexity: O(V) (stack space).
+    Tree.prototype.depthFirstSearch = function () {
+        if (!this.root)
+            return [];
+        var result = [];
+        var stack = [this];
+        while (stack.length > 0) {
+            var currentNode = stack.pop();
+            result.push(currentNode.root);
+            if (currentNode.left) {
+                stack.push(currentNode.left);
+            }
+            if (currentNode.right) {
+                stack.push(currentNode.right);
+            }
+        }
+        console.log(result);
+    };
     Tree.prototype.insert = function (value) {
         if (this.root == null) {
             this.root = value;

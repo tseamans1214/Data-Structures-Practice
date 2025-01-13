@@ -21,6 +21,8 @@ console.log("PostOrder Search: (Should be: 1, 3, 2, 6, 9, 7, 5)");
 binaryTree.postOrderSearch();
 console.log("LevelOrder (Breadth-First) Search: (Should be: 5, 2, 7, 1, 3, 6, 9)");
 binaryTree.levelOrderTraversal();
+console.log("Depth-First Search: (Should be: 1, 3, 6, 9, 2, 7, 5)");
+binaryTree.depthFirstSearch();
 console.log("Number of Nodes: " + binaryTree.getSize());
 console.log("Min: " + binaryTree.getMin());
 console.log("Max: " + binaryTree.getMax());
