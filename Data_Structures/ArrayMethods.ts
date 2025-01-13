@@ -209,6 +209,45 @@ function heapify(array: number[], n: number, i: number): void {
     }
 }
 
+// Counting Sort
+// Description: Count occurrences of each element and calculate their positions.
+// Time Complexity: O(n+k), where k is the range of input.
+// Space Complexity: O(k).
+export function countingSort(array: number[]): number[] {
+    if (array.length === 0) {
+        return array; // Return empty array if input is empty
+    }
+
+    // Find the range of the input array
+    const max = Math.max(...array);
+    const min = Math.min(...array);
+    const range = max - min + 1;
+
+    // Create a count array and initialize it to zero
+    const count: number[] = [];
+    for (let i = 0; i < range; i++) {
+        count[i] = 0;
+    }
+
+    // Populate the count array by counting the occurances of each value
+    // Example: array = [4, 2, 2, 8, 3, 3, 1]
+    //  count = [1, 2, 2, 1, 0, 0, 0, 1], means [1:1, 2:2, 3:2, 4:1, 5:0, 6:0, 7:0, 8:1]
+    for (const num of array) {
+        count[num - min]++;
+    }
+
+    // Reconstruct the sorted array
+    const sortedArray: number[] = [];
+    for (let i = 0; i < count.length; i++) {
+        while (count[i] > 0) { // Add current number as many times as it occurs in given array
+            sortedArray.push(i + min);
+            count[i]--;
+        }
+    }
+
+    return sortedArray;
+}
+
 // Linear Search
 // Description: Search for target by checking elements one by one
 // Time Complexity: O(n).

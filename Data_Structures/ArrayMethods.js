@@ -15,6 +15,7 @@ exports.insertionSort = insertionSort;
 exports.mergeSort = mergeSort;
 exports.quickSort = quickSort;
 exports.heapSort = heapSort;
+exports.countingSort = countingSort;
 exports.linearSearch = linearSearch;
 exports.binarySearch = binarySearch;
 // Bubble Sort
@@ -208,7 +209,44 @@ function heapify(array, n, i) {
         heapify(array, n, largest);
     }
 }
+// Counting Sort
+// Description: Count occurrences of each element and calculate their positions.
+// Time Complexity: O(n+k), where k is the range of input.
+// Space Complexity: O(k).
+function countingSort(array) {
+    if (array.length === 0) {
+        return array; // Return empty array if input is empty
+    }
+    // Find the range of the input array
+    var max = Math.max.apply(Math, array);
+    var min = Math.min.apply(Math, array);
+    var range = max - min + 1;
+    // Create a count array and initialize it to zero
+    var count = [];
+    for (var i = 0; i < range; i++) {
+        count[i] = 0;
+    }
+    // Populate the count array by counting the occurances of each value
+    // Example: array = [4, 2, 2, 8, 3, 3, 1]
+    //  count = [1, 2, 2, 1, 0, 0, 0, 1], means [1:1, 2:2, 3:2, 4:1, 5:0, 6:0, 7:0, 8:1]
+    for (var _i = 0, array_1 = array; _i < array_1.length; _i++) {
+        var num = array_1[_i];
+        count[num - min]++;
+    }
+    // Reconstruct the sorted array
+    var sortedArray = [];
+    for (var i = 0; i < count.length; i++) {
+        while (count[i] > 0) { // Add current number as many times as it occurs in given array
+            sortedArray.push(i + min);
+            count[i]--;
+        }
+    }
+    return sortedArray;
+}
 // Linear Search
+// Description: Search for target by checking elements one by one
+// Time Complexity: O(n).
+// Space Complexity: O(1).
 function linearSearch(array, target) {
     var n = array.length;
     for (var i = 0; i < n; i++) {
