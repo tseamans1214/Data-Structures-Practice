@@ -1,3 +1,4 @@
+import { binarySearch, bubbleSort, insertionSort, selectionSort } from "./Data_Structures/ArrayMethods.js";
 import { Tree } from "./Data_Structures/Tree.js";
 
 let binaryTree = new Tree(5);
@@ -35,3 +36,19 @@ console.log("isEmpty: " + binaryTree.isEmpty());
 console.log("Delete: 7");
 binaryTree.delete(7);
 binaryTree.inOrderSearch();
+
+
+let array = [1, 3, 4, 5, 6, 7];
+console.log("binarySearch(array, 1): " + binarySearch(array, 1));
+console.log("binarySearch(array, 7): " + binarySearch(array, 7));
+console.log("binarySearch(array, 3): " + binarySearch(array, 3));
+console.log("binarySearch(array, 6): " + binarySearch(array, 6));
+console.log("binarySearch(array, 5): " + binarySearch(array, 5));
+console.log("binarySearch(array, 4): " + binarySearch(array, 4));
+console.log("binarySearch(array, 10): " + binarySearch(array, 10));
+console.log("binarySearch(array, 0): " + binarySearch(array, 0));
+
+let array2 = [ 10, 5, 1, 6, 7, 2];
+console.log(array2);
+insertionSort(array2);
+console.log(array2);

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var ArrayMethods_js_1 = require("./Data_Structures/ArrayMethods.js");
 var Tree_js_1 = require("./Data_Structures/Tree.js");
 var binaryTree = new Tree_js_1.Tree(5);
 //    5     Level: 0
@@ -36,3 +37,16 @@ console.log("isEmpty: " + binaryTree.isEmpty());
 console.log("Delete: 7");
 binaryTree.delete(7);
 binaryTree.inOrderSearch();
+var array = [1, 3, 4, 5, 6, 7];
+console.log("binarySearch(array, 1): " + (0, ArrayMethods_js_1.binarySearch)(array, 1));
+console.log("binarySearch(array, 7): " + (0, ArrayMethods_js_1.binarySearch)(array, 7));
+console.log("binarySearch(array, 3): " + (0, ArrayMethods_js_1.binarySearch)(array, 3));
+console.log("binarySearch(array, 6): " + (0, ArrayMethods_js_1.binarySearch)(array, 6));
+console.log("binarySearch(array, 5): " + (0, ArrayMethods_js_1.binarySearch)(array, 5));
+console.log("binarySearch(array, 4): " + (0, ArrayMethods_js_1.binarySearch)(array, 4));
+console.log("binarySearch(array, 10): " + (0, ArrayMethods_js_1.binarySearch)(array, 10));
+console.log("binarySearch(array, 0): " + (0, ArrayMethods_js_1.binarySearch)(array, 0));
+var array2 = [10, 5, 1, 6, 7, 2];
+console.log(array2);
+(0, ArrayMethods_js_1.insertionSort)(array2);
+console.log(array2);
