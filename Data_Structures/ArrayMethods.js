@@ -15,6 +15,7 @@ exports.insertionSort = insertionSort;
 exports.mergeSort = mergeSort;
 exports.quickSort = quickSort;
 exports.heapSort = heapSort;
+exports.linearSearch = linearSearch;
 exports.binarySearch = binarySearch;
 // Bubble Sort
 // Description: Repeatedly swap adjacent elements if they are in the wrong order
@@ -208,6 +209,14 @@ function heapify(array, n, i) {
     }
 }
 // Linear Search
+function linearSearch(array, target) {
+    var n = array.length;
+    for (var i = 0; i < n; i++) {
+        if (target === array[i])
+            return true;
+    }
+    return false;
+}
 function binarySearch(array, target) {
     // Edge cases
     if (!array || array.length === 0)

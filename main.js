@@ -51,3 +51,5 @@ console.log(array2);
 //insertionSort(array2);
 array2 = (0, ArrayMethods_js_1.heapSort)(array2);
 console.log(array2);
+console.log("linearSearch(array2, 0): " + (0, ArrayMethods_js_1.linearSearch)(array2, 0));
+console.log("linearSearch(array2, 10): " + (0, ArrayMethods_js_1.linearSearch)(array2, 10));

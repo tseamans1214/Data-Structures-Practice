@@ -210,6 +210,18 @@ function heapify(array: number[], n: number, i: number): void {
 }
 
 // Linear Search
+// Description: Search for target by checking elements one by one
+// Time Complexity: O(n).
+// Space Complexity: O(1).
+export function linearSearch(array: Number[], target: Number): boolean{
+    let n = array.length;
+
+    for (let i=0; i<n; i++) {
+        if (target === array[i]) return true;
+    }
+    return false;
+}
+
 export function binarySearch(array: Number[], target: Number) : boolean{
     // Edge cases
     if (!array || array.length === 0) return false;
