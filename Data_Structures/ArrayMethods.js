@@ -13,6 +13,8 @@ exports.bubbleSort = bubbleSort;
 exports.selectionSort = selectionSort;
 exports.insertionSort = insertionSort;
 exports.mergeSort = mergeSort;
+exports.quickSort = quickSort;
+exports.heapSort = heapSort;
 exports.binarySearch = binarySearch;
 // Bubble Sort
 // Description: Repeatedly swap adjacent elements if they are in the wrong order
@@ -94,35 +96,118 @@ function insertionSort(arr) {
     }
 }
 // Merge Sort
-// Description: Divide the array into halves, sort each half, and merge them.
+// Description: Divide the array into halves (starting with groups of 1 and 2), sort each half, and merge them
+//  until the entire array is rebuilt sorted
 // Time Complexity: O(nlog⁡n) for all cases.
 // Space Complexity: O(n) (requires auxiliary space).
 function mergeSort(array) {
     var half = array.length / 2;
+    // Returns the array if it cannot be divide (length less than 2)
     if (array.length < 2) {
         return array;
     }
+    // Splits current array in half
     var left = array.splice(0, half);
+    // Continue to split the left and right sides of the array in half until each section is 
+    //  split into 1 or 2 elements. Sort each section, merge sections, until array is built back up sorted
     return merge(mergeSort(left), mergeSort(array));
 }
 function merge(left, right) {
     var arr = [];
-    console.log("New Merge");
-    console.log("Left: " + left);
-    console.log("Right: " + right);
+    // While left and right arrays have elements, check first element of each 
+    //  to see which has the smallest value
     while (left.length && right.length) {
+        // push smallest element into array and repeat until left or right is empty
         if (left[0] < right[0]) {
             arr.push(left.shift());
         }
         else {
             arr.push(right.shift());
         }
-        console.log("Merge arr: " + arr);
     }
+    // Return sorted array (arr) with remainder of left or right arrays.
+    //  Remainder will be in order because it will be the larget value between all arrays.
     return __spreadArray(__spreadArray(__spreadArray([], arr, true), left, true), right, true);
 }
 // Quick Sort
+// Description: Partition the array around a pivot and recursively sort the partitions.
+// Time Complexity: O(nlog⁡n) (average), O(n^2) (worst).
+// Space Complexity: O(log⁡n) (in-place recursion stack).
+function quickSort(array) {
+    ;
+    // Base case: arrays with 0 or 1 element are already sorted
+    if (array.length <= 1) {
+        return array;
+    }
+    // Choose Random pivot index (Using first or last element could lead to O(n^2) Time Complexity)
+    var pivotIndex = getRandomInt(0, array.length - 1);
+    var pivot = array[pivotIndex];
+    // Partition the array into two halves: less than and greater than the pivot
+    var left = [];
+    var right = [];
+    for (var i = 0; i < array.length; i++) {
+        if (i === pivotIndex)
+            continue; // Skip if index is the same as pivot
+        if (array[i] < pivot) {
+            left.push(array[i]);
+        }
+        else {
+            right.push(array[i]);
+        }
+    }
+    // Recursively sort the left and right partitions and concatenate
+    return __spreadArray(__spreadArray(__spreadArray([], quickSort(left), true), [pivot], false), quickSort(right), true);
+}
+// Helper Function for quickSort
+// min inclusive
+// max inclusive
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 // Heap Sort
+// Description: Use a heap to repeatedly extract the maximum/minimum element.
+// Time Complexity: O(nlog⁡n).
+// Space Complexity: O(1) (in-place).
+function heapSort(array) {
+    var _a;
+    var n = array.length;
+    // Build the max heap
+    for (var i = Math.floor(n / 2) - 1; i >= 0; i--) {
+        heapify(array, n, i);
+    }
+    // Extract elements from the heap one by one
+    for (var i = n - 1; i > 0; i--) {
+        // Swap the root (largest element) with the last element
+        _a = [array[i], array[0]], array[0] = _a[0], array[i] = _a[1];
+        // Call heapify on the reduced heap
+        heapify(array, i, 0);
+    }
+    return array;
+}
+// Function to maintain the max heap property
+function heapify(array, n, i) {
+    var _a;
+    var largest = i; // Assume the current node is the largest
+    var left = 2 * i + 1; // Left child index
+    var right = 2 * i + 2; // Right child index
+    // If the left child is larger than the current largest
+    if (left < n && array[left] > array[largest]) {
+        largest = left;
+    }
+    // If the right child is larger than the current largest
+    if (right < n && array[right] > array[largest]) {
+        largest = right;
+    }
+    // If the largest is not the root
+    if (largest !== i) {
+        _a = [array[largest], array[i]], array[i] = _a[0], array[largest] = _a[1]; // Swap
+        // Recursively heapify the affected subtree
+        heapify(array, n, largest);
+    }
+}
+// Linear Search
 function binarySearch(array, target) {
     // Edge cases
     if (!array || array.length === 0)

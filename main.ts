@@ -1,4 +1,4 @@
-import { binarySearch, bubbleSort, insertionSort, mergeSort, selectionSort } from "./Data_Structures/ArrayMethods.js";
+import { binarySearch, bubbleSort, heapSort, insertionSort, mergeSort, quickSort, selectionSort } from "./Data_Structures/ArrayMethods.js";
 import { Tree } from "./Data_Structures/Tree.js";
 
 let binaryTree = new Tree(5);
@@ -51,5 +51,5 @@ console.log("binarySearch(array, 0): " + binarySearch(array, 0));
 let array2 = [ 10, 5, 1, 6, 7, 2];
 console.log(array2);
 //insertionSort(array2);
-array2 = mergeSort(array2);
+array2 = heapSort(array2);
 console.log(array2);

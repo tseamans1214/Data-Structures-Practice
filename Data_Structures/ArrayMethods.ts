@@ -120,8 +120,96 @@ function merge(left: Number[], right: Number[]) {
 }
 
 // Quick Sort
-// Heap Sort
+// Description: Partition the array around a pivot and recursively sort the partitions.
+// Time Complexity: O(nlog⁡n) (average), O(n^2) (worst).
+// Space Complexity: O(log⁡n) (in-place recursion stack).
 
+export function quickSort(array: number[]): number[] {;
+    // Base case: arrays with 0 or 1 element are already sorted
+    if (array.length <= 1) {
+        return array;
+    }
+
+    // Choose Random pivot index (Using first or last element could lead to O(n^2) Time Complexity)
+    const pivotIndex = getRandomInt(0, array.length-1);
+    const pivot = array[pivotIndex];
+
+    // Partition the array into two halves: less than and greater than the pivot
+    const left: number[] = [];
+    const right: number[] = [];
+
+    for (let i = 0; i < array.length; i++) {
+        if (i === pivotIndex) continue; // Skip if index is the same as pivot
+        if (array[i] < pivot) {
+            left.push(array[i]);
+        } else {
+            right.push(array[i]);
+        }
+    }
+
+    // Recursively sort the left and right partitions and concatenate
+    return [...quickSort(left), pivot, ...quickSort(right)];
+}
+
+// Helper Function for quickSort
+// min inclusive
+// max inclusive
+function getRandomInt(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Heap Sort
+// Description: Use a heap to repeatedly extract the maximum/minimum element.
+// Time Complexity: O(nlog⁡n).
+// Space Complexity: O(1) (in-place).
+export function heapSort(array: number[]): number[] {
+    const n = array.length;
+
+    // Build the max heap
+    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+        heapify(array, n, i);
+    }
+
+    // Extract elements from the heap one by one
+    for (let i = n - 1; i > 0; i--) {
+        // Swap the root (largest element) with the last element
+        [array[0], array[i]] = [array[i], array[0]];
+
+        // Call heapify on the reduced heap
+        heapify(array, i, 0);
+    }
+
+    return array;
+}
+
+// Function to maintain the max heap property
+function heapify(array: number[], n: number, i: number): void {
+    let largest = i; // Assume the current node is the largest
+    const left = 2 * i + 1; // Left child index
+    const right = 2 * i + 2; // Right child index
+
+    // If the left child is larger than the current largest
+    if (left < n && array[left] > array[largest]) {
+        largest = left;
+    }
+
+    // If the right child is larger than the current largest
+    if (right < n && array[right] > array[largest]) {
+        largest = right;
+    }
+
+    // If the largest is not the root
+    if (largest !== i) {
+        [array[i], array[largest]] = [array[largest], array[i]]; // Swap
+
+        // Recursively heapify the affected subtree
+        heapify(array, n, largest);
+    }
+}
+
+// Linear Search
 export function binarySearch(array: Number[], target: Number) : boolean{
     // Edge cases
     if (!array || array.length === 0) return false;

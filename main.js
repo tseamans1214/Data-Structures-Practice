@@ -49,5 +49,5 @@ console.log("binarySearch(array, 0): " + (0, ArrayMethods_js_1.binarySearch)(arr
 var array2 = [10, 5, 1, 6, 7, 2];
 console.log(array2);
 //insertionSort(array2);
-array2 = (0, ArrayMethods_js_1.mergeSort)(array2);
+array2 = (0, ArrayMethods_js_1.heapSort)(array2);
 console.log(array2);
