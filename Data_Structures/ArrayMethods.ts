@@ -82,11 +82,41 @@ export function insertionSort(arr: Number[]) {
     }
 }
 // Merge Sort
-// Description:
+// Description: Divide the array into halves (starting with groups of 1 and 2), sort each half, and merge them
+//  until the entire array is rebuilt sorted
+// Time Complexity: O(nlog⁡n) for all cases.
+// Space Complexity: O(n) (requires auxiliary space).
+export function mergeSort(array: Number[]) {
+    const half = array.length / 2;
+  
+    // Returns the array if it cannot be divide (length less than 2)
+    if (array.length < 2){
+      return array;
+    }
+  
+    // Splits current array in half
+    const left: Number[] = array.splice(0, half);
+    // Continue to split the left and right sides of the array in half until each section is 
+    //  split into 1 or 2 elements. Sort each section, merge sections, until array is built back up sorted
+    return merge(mergeSort(left),mergeSort(array));
+  }
+  
+function merge(left: Number[], right: Number[]) {
+    let arr: Number[] = [];
 
-
-export function mergeSort(arr: Number[]) {
-
+    // While left and right arrays have elements, check first element of each 
+    //  to see which has the smallest value
+    while (left.length && right.length) {
+        // push smallest element into array and repeat until left or right is empty
+        if (left[0] < right[0]) {
+            arr.push(left.shift()!);
+        } else {
+            arr.push(right.shift()!);
+        }
+    }
+    // Return sorted array (arr) with remainder of left or right arrays.
+    //  Remainder will be in order because it will be the larget value between all arrays.
+    return [ ...arr, ...left, ...right ];
 }
 
 // Quick Sort

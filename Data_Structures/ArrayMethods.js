@@ -1,8 +1,18 @@
 "use strict";
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.bubbleSort = bubbleSort;
 exports.selectionSort = selectionSort;
 exports.insertionSort = insertionSort;
+exports.mergeSort = mergeSort;
 exports.binarySearch = binarySearch;
 // Bubble Sort
 // Description: Repeatedly swap adjacent elements if they are in the wrong order
@@ -65,7 +75,7 @@ function selectionSort(arr) {
 // Space Complexity: O(1).
 function insertionSort(arr) {
     var n = arr.length;
-    // Edge Cases
+    // Edge Case
     if (n <= 1)
         return;
     var i = 0;
@@ -74,14 +84,43 @@ function insertionSort(arr) {
     for (i = 1; i < n; i++) {
         key = arr[i];
         j = i - 1;
+        // Loop through current values and see if any are out of place
         while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
             j = j - 1;
         }
+        // Put key value in the right place
         arr[j + 1] = key;
     }
 }
 // Merge Sort
+// Description: Divide the array into halves, sort each half, and merge them.
+// Time Complexity: O(nlog⁡n) for all cases.
+// Space Complexity: O(n) (requires auxiliary space).
+function mergeSort(array) {
+    var half = array.length / 2;
+    if (array.length < 2) {
+        return array;
+    }
+    var left = array.splice(0, half);
+    return merge(mergeSort(left), mergeSort(array));
+}
+function merge(left, right) {
+    var arr = [];
+    console.log("New Merge");
+    console.log("Left: " + left);
+    console.log("Right: " + right);
+    while (left.length && right.length) {
+        if (left[0] < right[0]) {
+            arr.push(left.shift());
+        }
+        else {
+            arr.push(right.shift());
+        }
+        console.log("Merge arr: " + arr);
+    }
+    return __spreadArray(__spreadArray(__spreadArray([], arr, true), left, true), right, true);
+}
 // Quick Sort
 // Heap Sort
 function binarySearch(array, target) {
